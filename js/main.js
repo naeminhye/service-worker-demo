@@ -1,15 +1,22 @@
+/** This code registers the service-worker.js file as a service worker.
+ *  It first checks whether the browser supports service workers. */
+
 if ('serviceWorker' in navigator) {
-    console.log('Service Worker Supported!');
+    console.log('[MAIN] Service Worker is Supported!');
 
     window.addEventListener('load', function () {
-        navigator.serviceWorker
-            .register('./service-worker.js')
+        /** Register a service worker hosted
+         * at the root of the site using the default scope. */
+        navigator.serviceWorker.register('./service-worker.js')
             // Return a Promise
-            .then(function (reg) {
-                console.log('Service Worker Registered!');
+            .then(function (registration ) {
+                console.log('[MAIN] Service Worker registration succeeded:', registration);
             })
             .catch(function (err) {
-                console.error(`Service Worker Registration Failed: ${err}`);
+                console.error('[MAIN] Service Worker registration failed:', err);
             })
     });
+}
+else {
+    console.log('[MAIN] Service workers are not supported.');
 }
